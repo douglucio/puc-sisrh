@@ -1,5 +1,6 @@
 package sisrh.rest;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -28,6 +29,42 @@ public class EmpregadoRest {
 	public Response listarEmpregados() throws Exception {
 		List<Empregado> lista = Banco.listarEmpregados();
 		GenericEntity<List<Empregado>> entity = new GenericEntity<List<Empregado>>(lista) {
+		};
+		return Response.ok().entity(entity).build();
+	}
+	
+	@GET
+	@Path("/ativos")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response listarEmpregadosAtivos() throws Exception {
+		List<Empregado> lista = Banco.listarEmpregados();
+		List<Empregado> nLista = new ArrayList<Empregado>();
+		for (Empregado empregado : lista) {
+			if (empregado.getDesligamento() == null) {
+				nLista.add(empregado);
+				System.out.println(empregado.getNome());;
+			}
+		}
+		
+		GenericEntity<List<Empregado>> entity = new GenericEntity<List<Empregado>>(nLista) {
+		};
+		return Response.ok().entity(entity).build();
+	}
+	
+	@GET
+	@Path("/inativo")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response listarEmpregadosInativos() throws Exception {
+		List<Empregado> lista = Banco.listarEmpregados();
+		List<Empregado> nLista = new ArrayList<Empregado>();
+		for (Empregado empregado : lista) {
+			if (empregado.getDesligamento() != null) {
+				nLista.add(empregado);
+				System.out.println(empregado.getNome());;
+			}
+		}
+		
+		GenericEntity<List<Empregado>> entity = new GenericEntity<List<Empregado>>(nLista) {
 		};
 		return Response.ok().entity(entity).build();
 	}
