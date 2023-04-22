@@ -11,7 +11,7 @@ RUN apt-get update && \
     apt-get install -y maven
 
 # Executa o comando "mvn dependency:resolve" para baixar as dependências da aplicação
-# RUN mvn dependency:resolve
+RUN mvn dependency:resolve
 
 # Copia todos os arquivos da aplicação para dentro do contêiner
 COPY . .
