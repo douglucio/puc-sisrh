@@ -88,7 +88,7 @@
 					<configuration>
 						<archive>
 							<manifest>
-								<mainClass>sisrh.rest</mainClass>
+								<mainClass>src.main.java.sisrh.rest.AppRest</mainClass>
 							</manifest>
 						</archive>
 						<warSourceDirectory>
