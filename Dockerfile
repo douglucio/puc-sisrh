@@ -20,4 +20,4 @@ RUN mvn package
 EXPOSE 8080
 
 # Define o comando de inicialização da aplicação
-CMD ["java", "-jar", "target/nome-da-aplicacao.jar"]
+CMD ["java", "-jar", "target/sisrh.war"]
