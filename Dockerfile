@@ -1,5 +1,5 @@
 # Define a imagem base do Docker
-FROM openjdk:11-jdk-slim
+FROM openjdk:19-jdk-slim
 
 # Define um diretório para a aplicação
 WORKDIR /app
