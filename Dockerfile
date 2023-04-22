@@ -7,6 +7,9 @@ WORKDIR /app
 # Copia o arquivo pom.xml da aplicação para dentro do contêiner
 COPY pom.xml .
 
+RUN apt-get update && \
+    apt-get install -y maven
+
 # Executa o comando "mvn dependency:resolve" para baixar as dependências da aplicação
 # RUN mvn dependency:resolve
 
