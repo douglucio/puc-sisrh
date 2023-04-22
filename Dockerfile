@@ -1,5 +1,5 @@
 # Define a imagem base do Docker
-FROM openjdk:11-jdk-slim
+FROM openjdk:8-jdk-alpine
 
 # Set the working directory to /app
 WORKDIR /app
