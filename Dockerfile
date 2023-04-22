@@ -1,5 +1,5 @@
 # Define a imagem base do Docker
-FROM openjdk:19-jdk-alpine3.13
+FROM openjdk:19-jdk-slim
 RUN mkdir /usr/local/tomcat
 RUN mkdir /usr/local/tomcat/webapps/sisrh
 COPY sisrh.war /usr/local/tomcat/webapps/sisrh
