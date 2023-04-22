@@ -1,20 +1,7 @@
 # Define a imagem base do Docker
-FROM openjdk:8-jdk-alpine
-
-# Set the working directory to /app
-WORKDIR /app
-
-# Copy the current directory contents into the container at /app
-COPY . /app
-
-# Compile the Java servlet application
-RUN javac -cp "lib/*" -d bin src/*.java
-
-# Set the classpath for the application
-ENV CLASSPATH /app/bin:/app/lib/*
-
-# Expose port 8080
+FROM openjdk:19-jdk-alpine3.13
+RUN mkdir /usr/local/tomcat
+RUN mkdir /usr/local/tomcat/webapps/sisrh
+COPY sisrh.war /usr/local/tomcat/webapps/sisrh
 EXPOSE 8080
-
-# Run the application when the container starts
-CMD ["java", "Main"]
+CMD ["catalina.sh", "run"]
