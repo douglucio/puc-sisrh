@@ -8,10 +8,13 @@
 		<servlet-name>InicializarBancoServlet</servlet-name>
 		<servlet-class>sisrh.servlet.InicializarBancoServlet</servlet-class>
 		<load-on-startup>1</load-on-startup>
+		
 	</servlet>
 	
     <welcome-file-list>
         <welcome-file>home.jsp</welcome-file>        
     </welcome-file-list>	
+    
+    
 
 </web-app>

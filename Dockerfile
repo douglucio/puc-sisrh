@@ -1,26 +1,20 @@
 # Define a imagem base do Docker
-FROM openjdk:19-jdk-slim
+FROM openjdk:11-jdk-slim
 
-# Define um diretório para a aplicação
+# Set the working directory to /app
 WORKDIR /app
 
-# Copia o arquivo pom.xml da aplicação para dentro do contêiner
-COPY pom.xml .
+# Copy the current directory contents into the container at /app
+COPY . /app
 
-RUN apt-get update && \
-    apt-get install -y maven
+# Compile the Java servlet application
+RUN javac -cp "lib/*" -d bin src/*.java
 
-# Executa o comando "mvn dependency:resolve" para baixar as dependências da aplicação
-RUN mvn dependency:resolve
+# Set the classpath for the application
+ENV CLASSPATH /app/bin:/app/lib/*
 
-# Copia todos os arquivos da aplicação para dentro do contêiner
-COPY . .
-
-# Executa o comando "mvn package" para compilar a aplicação
-RUN mvn package
-
-# Define a porta em que a aplicação irá rodar
+# Expose port 8080
 EXPOSE 8080
 
-# Define o comando de inicialização da aplicação
-CMD ["java", "-jar", "target/sisrh.war"]
+# Run the application when the container starts
+CMD ["java", "Main"]
