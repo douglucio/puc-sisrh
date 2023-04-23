@@ -1,20 +1,20 @@
-# Use the official JDK 19 image as the parent image
-FROM openjdk:19-jdk-slim
+FROM tomcat:9.0
 
-# Set the working directory to /app
-WORKDIR /app
+WORKDIR /usr/local/tomcat/bin
+COPY run.sh run.sh
+RUN chmod +x run.sh
 
-# Copy the current directory contents into the container at /app
-COPY . /app
+RUN apt-get update
+RUN apt-get install default-jre --assume-yes
+RUN apt-get install default-jdk --assume-yes
+RUN apt-get install zip --assume-yes
 
-RUN apt-get update && \
-    apt-get install -y apk
+ENV JPDA_ADDRESS="8000"
+ENV JPDA_TRANSPORT="dt_socket"
 
-# Install any necessary dependencies
-RUN apk add --no-cache curl
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod 755 /entrypoint.sh
 
-# Expose port 8080 for the web application
-EXPOSE 8080
+ENTRYPOINT ["/entrypoint.sh"]
 
-# Define the command to run the application when the container starts
-CMD ["java", "-jar", "app.war"]
+WORKDIR /usr/local/tomcat/bin
