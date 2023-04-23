@@ -1,20 +1,9 @@
-FROM tomcat:8.0
+FROM tomcat:jdk8-openjdk
 
-WORKDIR /usr/local/tomcat/bin
-COPY run.sh run.sh
-RUN chmod +x run.sh
+COPY . /usr/local/tomcat/webapps/
 
-RUN apt-get update
-RUN apt-get install default-jre --assume-yes
-RUN apt-get install default-jdk --assume-yes
-RUN apt-get install zip --assume-yes
+RUN ["javac", "-cp", ".:/usr/local/tomcat/lib/servlet-api.jar", "-d", "/usr/local/tomcat/webapps/myApp/WEB-INF/classes/", "/usr/local/tomcat/webapps/myApp/src/InicializarBancoServlet.java"]
 
-ENV JPDA_ADDRESS="8000"
-ENV JPDA_TRANSPORT="dt_socket"
-
-COPY entrypoint.sh /entrypoint.sh
-RUN chmod 755 /entrypoint.sh
-
-ENTRYPOINT ["/entrypoint.sh"]
-
-WORKDIR /usr/local/tomcat/bin
+# Serve Tomcat
+EXPOSE 8080
+CMD ["catalina.sh", "run"]
