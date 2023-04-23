@@ -6,6 +6,9 @@ WORKDIR /app
 
 # Copy the current directory contents into the container at /app
 COPY . /app
+
+RUN apk update && apk add wget
+
 # Install any necessary dependencies
 RUN apk add --no-cache curl
 
